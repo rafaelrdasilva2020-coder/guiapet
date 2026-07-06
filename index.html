@@ -142,7 +142,7 @@ src="https://www.facebook.com/tr?id=1075908414759250&ev=PageView&noscript=1"
   .check-list{list-style:none; margin:18px 0 0; padding:16px 0 0; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:10px;}
   .check-list li{display:flex; gap:10px; align-items:flex-start; font-size:.95rem;}
   .check-list svg{flex-shrink:0; margin-top:3px; width:18px; height:18px; color:var(--olive);}
-  .hero-media{position:relative;}
+  .hero-media{position:relative; margin: 20px 0;}
   .hero-media .frame{
     border-radius:22px; overflow:hidden;
     box-shadow:0 24px 48px -12px rgba(46,36,28,.32);
@@ -265,7 +265,7 @@ src="https://www.facebook.com/tr?id=1075908414759250&ev=PageView&noscript=1"
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M20 4 8.12 15.88"></path><path d="M14.47 14.48 20 20"></path><path d="M8.12 8.12 12 12"></path></svg>
       Moda Pet
     </div>
-    <a href="https://pay.cakto.com.br/knhc5b7_945299" class="btn small pulse" id="cta-header" data-cta="header">Comprar Agora</a>
+    <!-- Botão de comprar removido conforme solicitado -->
   </div>
 </header>
 
@@ -274,14 +274,16 @@ src="https://www.facebook.com/tr?id=1075908414759250&ev=PageView&noscript=1"
     <div>
       <span class="badge">✂️ Oferta por tempo limitado</span>
       <h1>Crie as roupinhas dos seus pets com suas próprias mãos e descubra uma nova fonte de renda.</h1>
+      
+      <!-- Imagem do produto movida para abaixo da headline -->
+      <div class="hero-media">
+        <div class="frame"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663808175848/sQBVoFMuzvZfZJDI.webp" alt="Guia Moda Pet" style="width: 100%;"></div>
+        <div class="tag">🧵 Feito à mão, com moldes profissionais</div>
+      </div>
+
       <p class="sub">Seu guia passo a passo + <strong>100 moldes profissionais</strong> te levam da primeira costura até a primeira venda — mesmo se você nunca costurou antes.</p>
 
-      <div class="price-row">
-        <span class="price-now">R$ 29,90</span>
-        <span class="price-was">R$ 79,90</span>
-        <span class="price-off">62% OFF</span>
-      </div>
-      <p class="price-note">Acesso imediato em PDF • Sem mensalidade • Garantia de 7 dias</p>
+      <!-- O valor do produto foi removido do topo conforme solicitado -->
 
       <div style="margin-top:20px;">
         <a href="https://pay.cakto.com.br/knhc5b7_945299" class="btn pulse" id="cta-hero" data-cta="hero">✂️ Quero os Moldes Agora</a>
@@ -291,26 +293,14 @@ src="https://www.facebook.com/tr?id=1075908414759250&ev=PageView&noscript=1"
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> 3 bônus + tabelas de medidas e resolução de problemas</li>
       </ul>
     </div>
-
-    <div class="hero-media"><div class="frame"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663808175848/sQBVoFMuzvZfZJDI.webp" alt="Guia Moda Pet" style="width: 100%;"></div>
-      <div class="tag">🧵 Feito à mão, com moldes profissionais</div>
-    </div>
+    
+    <!-- Coluna da direita vazia ou pode ser removida se quiser centralizar o conteúdo acima -->
   </div>
 </section>
 
 <div class="stitch"></div>
 
-<section class="urgency">
-  <div class="container">
-    <p class="label">⏰ Oferta termina em</p>
-    <div class="timer" id="timer">
-      <div class="box"><strong id="t-days">00</strong><span>dias</span></div>
-      <div class="box"><strong id="t-hours">00</strong><span>horas</span></div>
-      <div class="box"><strong id="t-min">00</strong><span>min</span></div>
-      <div class="box"><strong id="t-sec">00</strong><span>seg</span></div>
-    </div>
-  </div>
-</section>
+<!-- O contador foi movido para o final da página conforme solicitado -->
 
 <section>
   <div class="container">
@@ -484,6 +474,19 @@ src="https://www.facebook.com/tr?id=1075908414759250&ev=PageView&noscript=1"
   </div>
 </section>
 
+<!-- Seção de Urgência movida para o final -->
+<section class="urgency" style="padding: 40px 0; background: var(--cream); border-top: 1px solid var(--line);">
+  <div class="container">
+    <p class="label" style="color: var(--terracotta-dark);">⏰ Oferta termina em</p>
+    <div class="timer" id="timer">
+      <div class="box" style="background: var(--paper); border: 1px solid var(--line);"><strong id="t-days" style="color: var(--ink);">00</strong><span style="color: var(--ink-soft);">dias</span></div>
+      <div class="box" style="background: var(--paper); border: 1px solid var(--line);"><strong id="t-hours" style="color: var(--ink);">00</strong><span style="color: var(--ink-soft);">horas</span></div>
+      <div class="box" style="background: var(--paper); border: 1px solid var(--line);"><strong id="t-min" style="color: var(--ink);">00</strong><span style="color: var(--ink-soft);">min</span></div>
+      <div class="box" style="background: var(--paper); border: 1px solid var(--line);"><strong id="t-sec" style="color: var(--ink);">00</strong><span style="color: var(--ink-soft);">seg</span></div>
+    </div>
+  </div>
+</section>
+
 <section class="final-cta">
   <div class="container">
     <h2>Você já tem a habilidade.<br>Agora você tem o caminho.</h2>
@@ -541,8 +544,7 @@ src="https://www.facebook.com/tr?id=1075908414759250&ev=PageView&noscript=1"
     tick();
     setInterval(tick, 1000);
 
-    // Rastreamento de conversão: dispara ao clicar em qualquer CTA de checkout,
-    // registrando se o clique aconteceu dentro da janela do timer.
+    // Rastreamento de conversão
     document.querySelectorAll('[data-cta]').forEach(function(el){
       el.addEventListener('click', function(){
         var secondsLeft = Math.max(0, Math.floor((expiry - Date.now())/1000));
