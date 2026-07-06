@@ -121,20 +121,21 @@ src="https://www.facebook.com/tr?id=1075908414759250&ev=PageView&noscript=1"
     pointer-events:none;
   }
   .hero-grid{
-    display:grid; grid-template-columns:1fr; gap:36px; align-items:center; position:relative;
+    display:grid; grid-template-columns:1fr; gap:36px; align-items:center; position:relative; text-align:center;
   }
-  @media (min-width:960px){ .hero-grid{grid-template-columns:1.05fr .95fr; gap:52px;} }
+  @media (min-width:960px){ .hero-grid{grid-template-columns:1fr; gap:52px;} }
   .badge{
     display:inline-flex; align-items:center; gap:8px;
     padding:8px 16px; border-radius:999px;
     background:#fff; border:1px solid var(--line);
     font-weight:700; font-size:.82rem; color:var(--terracotta-dark);
     width:fit-content;
+    margin:0 auto 20px;
   }
   .hero h1{font-size:clamp(2.1rem, 4.2vw, 3.4rem); font-weight:600;}
   .hero h1 em{font-style:normal; color:var(--terracotta); border-bottom:4px solid var(--mustard); padding-bottom:2px;}
-  .hero p.sub{font-size:1.12rem; color:var(--ink-soft); max-width:52ch;}
-  .price-row{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-top:6px;}
+  .hero p.sub{font-size:1.12rem; color:var(--ink-soft); max-width:52ch; margin-left:auto; margin-right:auto;}
+  .price-row{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-top:6px; justify-content:center;}
   .price-now{font-family:'Fraunces',serif; font-size:2.6rem; font-weight:700; color:var(--terracotta-dark);}
   .price-was{font-size:1.15rem; color:var(--ink-soft); text-decoration:line-through;}
   .price-off{font-size:.85rem; font-weight:800; color:#fff; background:var(--olive); padding:4px 10px; border-radius:999px;}
@@ -142,20 +143,27 @@ src="https://www.facebook.com/tr?id=1075908414759250&ev=PageView&noscript=1"
   .check-list{list-style:none; margin:18px 0 0; padding:16px 0 0; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:10px;}
   .check-list li{display:flex; gap:10px; align-items:flex-start; font-size:.95rem;}
   .check-list svg{flex-shrink:0; margin-top:3px; width:18px; height:18px; color:var(--olive);}
-  .hero-media{position:relative; margin: 20px 0;}
+  .hero-media{position:relative; margin: 20px auto; text-align:center;}
   .hero-media .frame{
     border-radius:22px; overflow:hidden;
     box-shadow:0 24px 48px -12px rgba(46,36,28,.32);
     border:6px solid #fff;
     transform:rotate(1.2deg);
+    max-width:400px;
+    margin:0 auto;
   }
   .hero-media .tag{
-    position:absolute; bottom:-18px; left:-18px;
+    position:absolute; bottom:-18px; left:50%; transform:translateX(-50%) rotate(-3deg);
     background:#fff; border-radius:14px; padding:14px 18px;
     box-shadow:0 12px 24px rgba(46,36,28,.18);
     font-weight:700; font-size:.9rem; max-width:220px;
-    transform:rotate(-3deg);
   }
+  .trust-strip-hero{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:28px;
+    margin-top:36px; padding-top:28px; border-top:1px solid var(--line);
+  }
+  .faq-hero{max-width:760px; margin:36px auto 0;}
+  .faq-hero h3{text-align:center; margin-top:40px; margin-bottom:20px;}
 
   /* Countdown */
   .urgency{background:var(--ink); padding:26px 0;}
@@ -273,7 +281,7 @@ src="https://www.facebook.com/tr?id=1075908414759250&ev=PageView&noscript=1"
   <div class="container hero-grid">
     <div>
       <span class="badge">✂️ Oferta por tempo limitado</span>
-      <h1>Crie as roupinhas dos seus pets com suas próprias mãos e descubra uma nova fonte de renda.</h1>
+      <h1>Crie Roupinhas Para Pet e Ganhe de R$ 2.000 a R$ 5.000 Reais De Renda Extra Por Mês</h1>
       
       <!-- Imagem do produto movida para abaixo da headline -->
       <div class="hero-media">
@@ -283,9 +291,9 @@ src="https://www.facebook.com/tr?id=1075908414759250&ev=PageView&noscript=1"
 
       <p class="sub">Seu guia passo a passo + <strong>100 moldes profissionais</strong> te levam da primeira costura até a primeira venda — mesmo se você nunca costurou antes.</p>
 
-      <!-- O valor do produto foi removido do topo conforme solicitado -->
 
-      <div style="margin-top:20px;">
+
+      <div style="margin-top:40px;">
         <a href="#final-offer" class="btn pulse" id="cta-hero" data-cta="hero">✂️ Quero os Moldes Agora</a>
       </div>
 
@@ -442,14 +450,38 @@ src="https://www.facebook.com/tr?id=1075908414759250&ev=PageView&noscript=1"
   </div>
 </section>
 
-<section>
+
+
+<!-- Seção de Urgência movida para o final -->
+<section class="urgency" id="final-offer" style="padding: 40px 0; background: var(--cream); border-top: 1px solid var(--line);">
   <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">Dúvidas</span>
-      <h2>Perguntas frequentes</h2>
-      <p>Tudo que você precisa saber antes de comprar.</p>
+    <p class="label" style="color: var(--terracotta-dark);">⏰ Oferta termina em</p>
+    <div class="timer" id="timer">
+      <div class="box" style="background: var(--paper); border: 1px solid var(--line);"><strong id="t-days" style="color: var(--ink);">00</strong><span style="color: var(--ink-soft);">dias</span></div>
+      <div class="box" style="background: var(--paper); border: 1px solid var(--line);"><strong id="t-hours" style="color: var(--ink);">00</strong><span style="color: var(--ink-soft);">horas</span></div>
+      <div class="box" style="background: var(--paper); border: 1px solid var(--line);"><strong id="t-min" style="color: var(--ink);">00</strong><span style="color: var(--ink-soft);">min</span></div>
+      <div class="box" style="background: var(--paper); border: 1px solid var(--line);"><strong id="t-sec" style="color: var(--ink);">00</strong><span style="color: var(--ink-soft);">seg</span></div>
     </div>
-    <div class="faq">
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="container">
+    <h2>Você já tem a habilidade.<br>Agora você tem o caminho.</h2>
+    <p style="color:var(--ink-soft); max-width:52ch; margin:0 auto 28px;">O próximo passo — o primeiro molde, a primeira peça, a primeira venda — é seu.</p>
+    <div style="text-align:center; margin:30px 0;">
+      <div style="font-size:1.2rem; color:#e74c3c; text-decoration:line-through; margin-bottom:10px; font-weight:600;">R$ 79,90</div>
+      <div style="font-size:3.5rem; font-weight:bold; color:#27ae60; font-family:'Fraunces',serif; margin-bottom:15px;">R$ 29,90</div>
+      <div style="font-size:1rem; color:#fff; background:#6E7A4F; display:inline-block; padding:6px 14px; border-radius:999px; font-weight:800;">62% OFF</div>
+    </div>
+    <div style="margin-top:22px;">
+      <a href="https://pay.cakto.com.br/knhc5b7_945299" class="btn pulse" id="cta-final" data-cta="final">✂️ Quero os Moldes Agora</a>
+    </div>
+    <p class="final-cta-note">🔒 Compra segura • Pix ou cartão • Acesso imediato • Garantia de 7 dias</p>
+    
+    <!-- FAQ - ABAIXO DO PREÇO -->
+    <div class="faq" style="max-width:760px; margin:40px auto 0;">
+      <h3 style="text-align:center; margin-bottom:30px; font-size:1.5rem;">Perguntas frequentes</h3>
       <details class="faq-item">
         <summary>Posso usar esses moldes se nunca costurei antes?</summary>
         <p>Não é necessário ser expert. Os moldes são detalhados e acompanham instruções de montagem passo a passo. Quem sabe costurar o básico já consegue produzir as primeiras peças.</p>
@@ -474,34 +506,7 @@ src="https://www.facebook.com/tr?id=1075908414759250&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- Seção de Urgência movida para o final -->
-<section class="urgency" id="final-offer" style="padding: 40px 0; background: var(--cream); border-top: 1px solid var(--line);">
-  <div class="container">
-    <p class="label" style="color: var(--terracotta-dark);">⏰ Oferta termina em</p>
-    <div class="timer" id="timer">
-      <div class="box" style="background: var(--paper); border: 1px solid var(--line);"><strong id="t-days" style="color: var(--ink);">00</strong><span style="color: var(--ink-soft);">dias</span></div>
-      <div class="box" style="background: var(--paper); border: 1px solid var(--line);"><strong id="t-hours" style="color: var(--ink);">00</strong><span style="color: var(--ink-soft);">horas</span></div>
-      <div class="box" style="background: var(--paper); border: 1px solid var(--line);"><strong id="t-min" style="color: var(--ink);">00</strong><span style="color: var(--ink-soft);">min</span></div>
-      <div class="box" style="background: var(--paper); border: 1px solid var(--line);"><strong id="t-sec" style="color: var(--ink);">00</strong><span style="color: var(--ink-soft);">seg</span></div>
-    </div>
-  </div>
-</section>
 
-<section class="final-cta">
-  <div class="container">
-    <h2>Você já tem a habilidade.<br>Agora você tem o caminho.</h2>
-    <p style="color:var(--ink-soft); max-width:52ch; margin:0 auto 28px;">O próximo passo — o primeiro molde, a primeira peça, a primeira venda — é seu.</p>
-    <div class="price-row">
-      <span class="price-now">R$ 29,90</span>
-      <span class="price-was">R$ 79,90</span>
-      <span class="price-off">62% OFF</span>
-    </div>
-    <div style="margin-top:22px;">
-      <a href="https://pay.cakto.com.br/knhc5b7_945299" class="btn pulse" id="cta-final" data-cta="final">✂️ Quero os Moldes Agora</a>
-    </div>
-    <p class="final-cta-note">🔒 Compra segura • Pix ou cartão • Acesso imediato • Garantia de 7 dias</p>
-  </div>
-</section>
 
 <footer>
   <div class="container">
