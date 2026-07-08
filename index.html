@@ -476,9 +476,10 @@ fbq('track', 'PageView');
   }
   .plan-header{
     display:flex;
+    flex-wrap:wrap;
     justify-content:space-between;
     align-items:baseline;
-    gap:10px;
+    gap:6px 10px;
     margin-bottom:12px;
   }
   .plan-name{
@@ -486,6 +487,8 @@ fbq('track', 'PageView');
     font-weight:600;
     font-size:16.5px;
     color:var(--ink);
+    flex:1 1 auto;
+    min-width:0;
   }
   .plan-price{
     font-family:'Fraunces', serif;
@@ -493,6 +496,7 @@ fbq('track', 'PageView');
     font-size:22px;
     color:var(--terracotta-dark);
     white-space:nowrap;
+    flex-shrink:0;
   }
   .plan-features{
     list-style:none;
@@ -616,6 +620,15 @@ fbq('track', 'PageView');
     h1.q{ font-size:22px; }
     h1.intro-title{ font-size:23px; }
     h1.result-title{ font-size:22px; }
+    body{ padding-left:12px; padding-right:12px; }
+    .card-body{ padding-left:20px; padding-right:20px; }
+    .plan-card{ padding-left:16px; padding-right:16px; }
+    .plan-name{ font-size:15.5px; }
+    .plan-price{ font-size:20px; }
+  }
+  @media (max-width:360px){
+    .plan-name{ font-size:14.5px; }
+    .trust-row{ gap:10px; }
   }
 </style>
 </head>
