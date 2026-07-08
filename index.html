@@ -439,6 +439,105 @@ fbq('track', 'PageView');
     color:var(--ink-soft);
     margin-top:10px;
   }
+  .testimonials-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16px;
+    margin:0 0 3px;
+  }
+  .testimonials-sub{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin:0 0 12px;
+  }
+  .testimonials-wrap{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    padding:2px 2px 6px;
+    margin:0 -2px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+  .testimonials-wrap::-webkit-scrollbar{ height:5px; }
+  .testimonials-wrap::-webkit-scrollbar-thumb{ background:var(--blush); border-radius:10px; }
+  .t-card{
+    flex:0 0 216px;
+    scroll-snap-align:start;
+    background:#F2E4D8;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:13px;
+  }
+  .t-head{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:9px;
+  }
+  .t-avatar{
+    width:30px;height:30px;
+    border-radius:50%;
+    background:var(--terracotta-dark);
+    color:var(--white);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:13px;
+    flex-shrink:0;
+  }
+  .t-name{ font-size:12px; font-weight:600; color:var(--ink); line-height:1.2; }
+  .t-tag{ font-size:9.5px; color:var(--ink-soft); }
+  .t-bubble{
+    background:var(--white);
+    border-radius:0 10px 10px 10px;
+    padding:9px 11px;
+    font-size:12px;
+    color:var(--ink);
+    line-height:1.45;
+  }
+  .t-value{
+    display:inline-block;
+    margin-top:9px;
+    background:#DCF8C6;
+    color:#2E7D32;
+    font-weight:700;
+    font-size:12px;
+    padding:4px 10px;
+    border-radius:8px;
+  }
+  .t-hint{
+    text-align:center;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    margin:0 0 4px;
+  }
+  .plan-card.has-tag{ padding-top:42px; }
+  .plan-card.featured.has-tag{ padding-top:48px; }
+  .plan-recommended-tag{
+    position:absolute;
+    top:13px;
+    right:14px;
+    background:var(--gold);
+    color:var(--white);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    padding:4px 9px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .plan-card.featured .plan-recommended-tag{ top:30px; }
+  .plan-recommend-line{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin:0 0 12px;
+    line-height:1.5;
+  }
+  .plan-recommend-line strong{ color:var(--terracotta-dark); }
   .plans-wrap{
     display:flex;
     flex-direction:column;
@@ -850,6 +949,13 @@ function renderLoading(){
   setTimeout(()=>{ step = "result"; render(); }, 1900);
 }
 
+const TESTIMONIALS = [
+  { name:"Cecília", tag:"cliente 305", quote:"Comecei a usar o Guia Passo a Passo + Moldes Profissionais e não imaginava que conseguiria tão rápido. Os moldes são perfeitos, e as encomendas não param de chegar!", value:"R$ 7.500 faturados" },
+  { name:"Débora Nunes", tag:"cliente 287", quote:"Aprendi a fazer roupinhas pra pet com o Moda Pet. O material é muito completo e me ajudou a conquistar clientes fiéis.", value:"R$ 7.000 faturados" },
+  { name:"Fernanda", tag:"cliente 598", quote:"Antes eu não tinha confiança, mas o guia me deu segurança e técnicas que realmente funcionam. Só gratidão!", value:"R$ 5.580 em vendas" },
+  { name:"Francisca", tag:"cliente 432", quote:"Nunca tinha costurado nada pra vender. Hoje tenho minha clientela certa e faço o que gosto, trabalhando de casa.", value:"R$ 5.200 faturados" }
+];
+
 const PLANS = [
   {
     key: "essencial",
@@ -906,6 +1012,11 @@ function renderResult(){
     title = "Seu hobby pode virar uma <em>fonte de renda</em> sem virar peso";
   }
 
+  let recommendedKey = "premium";
+  if(goal.includes("negócio")){ recommendedKey = "mestre"; }
+  else if(goal.includes("hobby")){ recommendedKey = "essencial"; }
+  const recommendedPlan = PLANS.find(p => p.key === recommendedKey);
+
   card.innerHTML = `
     <img class="card-img" src="${IMG.result}" alt="Guia Completo de Moda Pet aberto em tablet e celular">
     <div class="card-body result">
@@ -919,12 +1030,35 @@ function renderResult(){
 
       <div class="divider"></div>
 
+      <p class="testimonials-title">Quem já começou está colhendo resultado</p>
+      <p class="testimonials-sub">Depoimentos reais de alunas do Moda Pet</p>
+      <div class="testimonials-wrap">
+        ${TESTIMONIALS.map(t => `
+          <div class="t-card">
+            <div class="t-head">
+              <div class="t-avatar">${t.name.charAt(0)}</div>
+              <div>
+                <div class="t-name">${t.name}</div>
+                <div class="t-tag">${t.tag}</div>
+              </div>
+            </div>
+            <div class="t-bubble">${t.quote}</div>
+            <span class="t-value">${t.value}</span>
+          </div>
+        `).join('')}
+      </div>
+      <p class="t-hint">← arraste para o lado →</p>
+
+      <div class="divider"></div>
+
       <p class="offer-title" style="margin-bottom:2px;">Escolha o plano ideal pra você:</p>
+      <p class="plan-recommend-line">Baseado nas suas respostas, o <strong>${recommendedPlan.name}</strong> é o que mais faz sentido pra você.</p>
 
       <div class="plans-wrap" id="plansWrap">
         ${PLANS.map(plan => `
-          <div class="plan-card ${plan.featured ? 'featured' : ''}">
+          <div class="plan-card ${plan.featured ? 'featured' : ''} ${plan.key === recommendedKey ? 'has-tag' : ''}">
             ${plan.featured ? '<span class="plan-badge">Mais vendido</span>' : ''}
+            ${plan.key === recommendedKey ? '<span class="plan-recommended-tag">Recomendado pra você</span>' : ''}
             <div class="plan-header">
               <span class="plan-name">${plan.name}</span>
               <span class="plan-price">${plan.price}</span>
@@ -934,7 +1068,7 @@ function renderResult(){
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>${f}</li>
               `).join('')}
             </ul>
-            <a class="plan-cta plan-cta-track" data-plan="${plan.key}" data-name="${plan.name}" data-value="${plan.priceValue}" href="${plan.checkout}" target="_blank" rel="noopener">
+            <a class="plan-cta plan-cta-track" data-plan="${plan.key}" data-name="${plan.name}" data-value="${plan.priceValue}" href="${plan.checkout}">
               Quero o ${plan.name.replace('Plano ','')} →
             </a>
           </div>
