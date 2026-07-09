@@ -26,6 +26,14 @@ fbq('init', '1075908414759250'); // mesmo Pixel do site principal
 fbq('track', 'PageView');
 </script>
 <!-- End Meta Pixel -->
+<!-- Utmify: captura UTMs/click IDs de entrada e anexa automaticamente aos links de checkout (Cakto) -->
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
 <style>
   :root{
     --cream:#FBF6EC;
@@ -884,8 +892,8 @@ const PLANS = [
   {
     key: "essencial",
     name: "Plano Essencial",
-    price: "R$ 14,90",
-    priceValue: 14.90,
+    price: "R$ 19,90",
+    priceValue: 19.90,
     features: [
       "50 moldes profissionais",
       "Acesso vitalício",
@@ -897,8 +905,8 @@ const PLANS = [
   {
     key: "premium",
     name: "Plano Premium",
-    price: "R$ 19,90",
-    priceValue: 19.90,
+    price: "R$ 29,90",
+    priceValue: 29.90,
     features: [
       "100 moldes profissionais",
       "Guia Passo a Passo",
@@ -911,8 +919,8 @@ const PLANS = [
   {
     key: "mestre",
     name: "Plano Mestre Alfaiataria Pet",
-    price: "R$ 27,90",
-    priceValue: 27.90,
+    price: "R$ 39,90",
+    priceValue: 39.90,
     features: [
       "100 moldes profissionais",
       "Guia Passo a Passo + Plano de Medidas",
