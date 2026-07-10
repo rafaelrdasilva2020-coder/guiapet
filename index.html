@@ -1322,14 +1322,22 @@ function renderResult(){
         if(typeof fbq === 'function'){ fbq('trackCustom', 'VSLPlay', {content_name:'Quiz Moda Pet - VSL'}); }
       }
     });
+    // Trava definitiva: se o vídeo já terminou, qualquer novo "play" (de qualquer origem) é bloqueado na hora
+    vslPlayer.addEventListener('play', ()=>{
+      if(vslEnded){
+        vslPlayer.pause();
+        vslPlayer.currentTime = vslPlayer.duration;
+      }
+    });
     // Impede pausa: qualquer tentativa de pausar antes do fim retoma o vídeo
     // (checa se está perto do final para não reiniciar quando o vídeo termina naturalmente)
     vslPlayer.addEventListener('pause', ()=>{
-      const nearEnd = vslPlayer.duration && (vslPlayer.duration - vslPlayer.currentTime < 0.35);
+      const nearEnd = vslPlayer.duration && (vslPlayer.duration - vslPlayer.currentTime < 1);
       if(!vslEnded && !nearEnd){ tryPlay(); }
     });
     vslPlayer.addEventListener('ended', ()=>{
       vslEnded = true;
+      vslPlayer.pause();
       vslProgressFill.style.width = '100%';
       if(typeof fbq === 'function'){ fbq('trackCustom', 'VSLComplete', {content_name:'Quiz Moda Pet - VSL'}); }
     });
