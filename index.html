@@ -153,33 +153,48 @@ fbq('track', 'PageView');
     aspect-ratio:16/9;
     background:#1a1210;
     overflow:hidden;
+    cursor:pointer;
   }
   .vsl-video{
     width:100%;
     height:100%;
     display:block;
     object-fit:cover;
+    pointer-events:none;
   }
-  .vsl-play-btn{
+  .vsl-progress-track{
     position:absolute;
-    inset:0;
-    margin:auto;
-    width:64px;
-    height:64px;
-    border-radius:50%;
-    background:rgba(163,79,48,0.94);
-    border:3px solid var(--white);
+    left:0; right:0; bottom:0;
+    height:5px;
+    background:rgba(255,255,255,0.28);
+    z-index:3;
+  }
+  .vsl-progress-fill{
+    height:100%;
+    width:0%;
+    background:var(--terracotta);
+  }
+  .vsl-mute-hint{
+    position:absolute;
+    left:50%;
+    bottom:16px;
+    transform:translateX(-50%);
+    z-index:4;
+    background:rgba(0,0,0,0.72);
+    color:var(--white);
+    font-size:12.5px;
+    font-weight:500;
+    padding:8px 16px;
+    border-radius:999px;
+    white-space:nowrap;
     display:flex;
     align-items:center;
-    justify-content:center;
-    color:var(--white);
-    cursor:pointer;
-    box-shadow:0 12px 26px -8px rgba(0,0,0,0.55);
-    transition:transform .15s;
+    gap:6px;
+    animation:vslPulse 1.7s ease-in-out infinite;
+    pointer-events:none;
   }
-  .vsl-play-btn svg{ width:26px;height:26px; margin-left:3px; }
-  .vsl-play-btn:hover{ transform:scale(1.07); }
-  .vsl-play-btn.hidden{ display:none; }
+  @keyframes vslPulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.55; } }
+  .vsl-mute-hint.hidden{ display:none; }
   .card-body{
     padding:34px 30px 30px;
     display:flex;
@@ -1178,13 +1193,12 @@ function renderResult(){
 
   card.innerHTML = `
     <div class="vsl-wrap" id="vslWrap">
-      <video id="vslPlayer" class="vsl-video" poster="${IMG.vslPoster}" preload="metadata" controls playsinline>
+      <video id="vslPlayer" class="vsl-video" poster="${IMG.vslPoster}" preload="auto" autoplay muted playsinline webkit-playsinline disablePictureInPicture controlsList="nodownload noplaybackrate noremoteplayback nofullscreen" oncontextmenu="return false" tabindex="-1">
         <source src="vsl.mp4" type="video/mp4">
         Seu navegador não suporta vídeo em HTML5.
       </video>
-      <button class="vsl-play-btn" id="vslPlayBtn" aria-label="Assistir vídeo">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-      </button>
+      <div class="vsl-progress-track"><div class="vsl-progress-fill" id="vslProgressFill"></div></div>
+      <div class="vsl-mute-hint" id="vslMuteHint">🔇 Toque para ativar o som</div>
     </div>
     <div class="card-body result">
       <span class="badge">Resultado do seu quiz</span>
@@ -1288,18 +1302,45 @@ function renderResult(){
   document.getElementById('restartBtn').addEventListener('click', ()=>{
     step = "intro"; answers = {}; render();
   });
+  const vslWrap = document.getElementById('vslWrap');
   const vslPlayer = document.getElementById('vslPlayer');
-  const vslPlayBtn = document.getElementById('vslPlayBtn');
-  if(vslPlayer && vslPlayBtn){
-    vslPlayBtn.addEventListener('click', ()=>{
-      vslPlayer.play();
+  const vslProgressFill = document.getElementById('vslProgressFill');
+  const vslMuteHint = document.getElementById('vslMuteHint');
+  if(vslPlayer){
+    let vslEnded = false;
+    let vslTracked = false;
+
+    const tryPlay = () => { vslPlayer.play().catch(()=>{}); };
+    tryPlay();
+
+    vslPlayer.addEventListener('timeupdate', ()=>{
+      if(vslPlayer.duration){
+        vslProgressFill.style.width = ((vslPlayer.currentTime / vslPlayer.duration) * 100) + '%';
+      }
+      if(!vslTracked && vslPlayer.currentTime > 1){
+        vslTracked = true;
+        if(typeof fbq === 'function'){ fbq('trackCustom', 'VSLPlay', {content_name:'Quiz Moda Pet - VSL'}); }
+      }
     });
-    vslPlayer.addEventListener('play', ()=>{
-      vslPlayBtn.classList.add('hidden');
-      if(typeof fbq === 'function'){ fbq('trackCustom', 'VSLPlay', {content_name:'Quiz Moda Pet - VSL'}); }
+    // Impede pausa: qualquer tentativa de pausar (antes do fim) retoma o vídeo
+    vslPlayer.addEventListener('pause', ()=>{
+      if(!vslEnded){ tryPlay(); }
     });
-    vslPlayer.addEventListener('pause', ()=>{ vslPlayBtn.classList.remove('hidden'); });
-    vslPlayer.addEventListener('ended', ()=>{ vslPlayBtn.classList.remove('hidden'); });
+    vslPlayer.addEventListener('ended', ()=>{
+      vslEnded = true;
+      if(typeof fbq === 'function'){ fbq('trackCustom', 'VSLComplete', {content_name:'Quiz Moda Pet - VSL'}); }
+    });
+    // Bloqueia teclado (espaço/setas) e duplo clique (fullscreen)
+    vslPlayer.addEventListener('keydown', e => e.preventDefault());
+    vslPlayer.addEventListener('dblclick', e => e.preventDefault());
+    // Toque em qualquer parte do player ativa o som (não pausa nem avança)
+    vslWrap.addEventListener('click', ()=>{
+      if(vslPlayer.muted){
+        vslPlayer.muted = false;
+        vslMuteHint.classList.add('hidden');
+        if(typeof fbq === 'function'){ fbq('trackCustom', 'VSLUnmute', {content_name:'Quiz Moda Pet - VSL'}); }
+      }
+    });
   }
   document.querySelectorAll('.plan-cta-track').forEach(btn=>{
     btn.addEventListener('click', ()=>{
