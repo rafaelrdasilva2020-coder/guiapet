@@ -195,6 +195,90 @@ fbq('track', 'PageView');
   }
   @keyframes vslPulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.55; } }
   .vsl-mute-hint.hidden{ display:none; }
+  .vsl-caption{
+    background:#1a1210;
+    color:rgba(255,255,255,0.85);
+    font-size:12px;
+    text-align:center;
+    padding:8px 16px;
+    margin:0;
+  }
+  .vsl-more-btn{
+    display:block;
+    width:calc(100% - 60px);
+    margin:14px 30px 0;
+    text-align:center;
+    background:var(--gold);
+    color:var(--white);
+    font-family:'Work Sans', sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    padding:13px 16px;
+    border-radius:12px;
+    border:none;
+    cursor:pointer;
+    animation:fadeInUp .4s ease-out;
+  }
+  .vsl-more-btn.hidden{ display:none; }
+  .compare-table-wrap{
+    overflow-x:auto;
+    margin:0 0 4px;
+    border:1px solid var(--line);
+    border-radius:12px;
+  }
+  .compare-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:12px;
+  }
+  .compare-table th, .compare-table td{
+    text-align:center;
+    padding:9px 6px;
+    border-bottom:1px solid var(--line);
+    white-space:nowrap;
+  }
+  .compare-table th{
+    background:var(--cream-2);
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:12.5px;
+    color:var(--ink);
+  }
+  .compare-table td{ color:var(--ink); font-size:13px; }
+  .compare-table tr:last-child td{ border-bottom:none; }
+  .compare-label-col{
+    text-align:left !important;
+    font-size:11.5px !important;
+    color:var(--ink-soft);
+    white-space:normal !important;
+    max-width:120px;
+    padding-left:10px !important;
+  }
+  .urgency-banner{
+    background:linear-gradient(90deg, #FDECC8, #FBE0B8);
+    border:1px solid #E8C989;
+    color:#7A4A12;
+    font-size:12.5px;
+    font-weight:600;
+    text-align:center;
+    padding:10px 14px;
+    border-radius:10px;
+    margin:0 0 14px;
+  }
+  .plan-cta-highlight{
+    background:linear-gradient(90deg, #E8873A, #D96B2B) !important;
+    border:none !important;
+    color:var(--white) !important;
+    box-shadow:0 10px 24px -10px rgba(217,107,43,0.7) !important;
+    animation:ctaPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes ctaPulse{
+    0%,100%{ box-shadow:0 10px 24px -10px rgba(217,107,43,0.7); transform:scale(1); }
+    50%{ box-shadow:0 12px 30px -8px rgba(217,107,43,0.95); transform:scale(1.015); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .plan-cta-highlight{ animation:none; }
+  }
   .card-body{
     padding:34px 30px 30px;
     display:flex;
@@ -268,7 +352,49 @@ fbq('track', 'PageView');
     border-color:var(--terracotta-dark);
     background:#FBEAE0;
   }
-  .opt.selected .dot{ background:var(--terracotta-dark); }
+  .opt.selected .dot{
+    background:var(--terracotta-dark);
+    position:relative;
+  }
+  .opt.selected .dot::after{
+    content:'✓';
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    color:var(--white);
+    font-size:8px;
+    font-weight:700;
+    animation:checkPop .25s ease-out;
+  }
+  @keyframes checkPop{ from{ transform:translate(-50%,-50%) scale(0); } to{ transform:translate(-50%,-50%) scale(1); } }
+  .opt:focus-visible{
+    outline:2px solid var(--terracotta-dark);
+    outline-offset:2px;
+  }
+  .transition-msg{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:32px 0;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:19px;
+    color:var(--terracotta-dark);
+    animation:fadeInUp .3s ease-out;
+  }
+  .transition-msg.show{ display:flex; }
+  .transition-check{
+    width:30px; height:30px;
+    border-radius:50%;
+    background:var(--terracotta-dark);
+    color:var(--white);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+  }
+  @keyframes fadeInUp{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:translateY(0); } }
 
   .nav-row{
     margin-top:auto;
@@ -964,17 +1090,23 @@ const questions = [
 ];
 const PLANS = [
   {
-    key: "essencial",
-    name: "Plano Essencial",
-    price: "R$ 19,90",
-    priceValue: 19.90,
+    key: "mestre",
+    name: "Plano Mestre Alfaiataria Pet",
+    price: "R$ 39,90",
+    priceValue: 39.90,
     features: [
-      "50 moldes profissionais",
-      "Acesso vitalício",
-      "Suporte por email"
+      "100 moldes profissionais para você criar uma coleção completa e não perder nenhuma venda",
+      "Guia Passo a Passo + Plano de Medidas para dominar o corte e o caimento perfeito",
+      "🎥 Vídeo aulas passo a passo para aprender vendo, no seu ritmo",
+      "Mini Guia Fotos que Vendem para suas peças chamarem atenção nas redes sociais",
+      "Check List 10 Primeiras Vendas para você não travar na hora de vender",
+      "Fotos que Vendem prontas para usar no seu catálogo",
+      "Planilha de Precificação para lucrar em cada peça, sem chutar preço",
+      "🎁 10 Moldes Datas Comemorativas para vender ainda mais nas datas de maior demanda"
     ],
-    checkout: "https://pay.cakto.com.br/6p7gj9f_968325",
-    featured: false
+    checkout: "https://pay.cakto.com.br/3dbzhps_968410",
+    featured: true,
+    videoShowcase: true
   },
   {
     key: "premium",
@@ -982,33 +1114,39 @@ const PLANS = [
     price: "R$ 29,90",
     priceValue: 29.90,
     features: [
-      "100 moldes profissionais",
-      "Guia Passo a Passo",
-      "Tabelas de medidas",
-      "Acesso vitalício"
+      "100 moldes profissionais para você criar uma coleção completa e não perder nenhuma venda",
+      "Guia Passo a Passo para costurar com confiança, sem travar em nenhuma etapa",
+      "Tabelas de medidas para acertar o caimento em qualquer porte, sem desperdiçar tecido",
+      "Acesso vitalício para consultar sempre que precisar"
     ],
     checkout: "https://pay.cakto.com.br/q2m756m_968365",
-    featured: false
+    featured: false,
+    highlightCta: true
   },
   {
-    key: "mestre",
-    name: "Plano Mestre Alfaiataria Pet",
-    price: "R$ 39,90",
-    priceValue: 39.90,
+    key: "essencial",
+    name: "Plano Essencial",
+    price: "R$ 19,90",
+    priceValue: 19.90,
     features: [
-      "100 moldes profissionais",
-      "Guia Passo a Passo + Plano de Medidas",
-      "🎥 Vídeo aulas passo a passo",
-      "Mini Guia Fotos que Vendem",
-      "Check List 10 Primeiras Vendas",
-      "Fotos que Vendem",
-      "Planilha de Precificação",
-      "🎁 10 Moldes Datas Comemorativas"
+      "50 moldes profissionais para você começar a criar suas primeiras peças hoje mesmo",
+      "Acesso vitalício para consultar sempre que precisar",
+      "Suporte por email para tirar suas dúvidas"
     ],
-    checkout: "https://pay.cakto.com.br/3dbzhps_968410",
-    featured: true,
-    videoShowcase: true
+    checkout: "https://pay.cakto.com.br/6p7gj9f_968325",
+    featured: false
   }
+];
+const FEATURE_MATRIX = [
+  { label: "Moldes profissionais", essencial: "50", premium: "100", mestre: "100" },
+  { label: "Guia Passo a Passo", essencial: false, premium: true, mestre: true },
+  { label: "Tabelas de Medidas", essencial: false, premium: true, mestre: true },
+  { label: "Vídeo Aulas", essencial: false, premium: false, mestre: true },
+  { label: "Fotos que Vendem", essencial: false, premium: false, mestre: true },
+  { label: "Planilha de Precificação", essencial: false, premium: false, mestre: true },
+  { label: "Bônus Datas Comemorativas", essencial: false, premium: false, mestre: true },
+  { label: "Suporte por email", essencial: true, premium: true, mestre: true },
+  { label: "Acesso vitalício", essencial: true, premium: true, mestre: true }
 ];
 const TESTIMONIALS = [
   { name:"Cecília", value:"R$ 7.500 faturados", img: IMG.t_cecilia, alt:"Print real de conversa no WhatsApp: Cecília relata R$7.500 faturados com o Guia + Moldes" },
@@ -1078,6 +1216,8 @@ function renderIntro(){
   });
 }
 
+const TRANSITION_PHRASES = ["Ótimo!", "Entendido!", "Perfeito!", "Boa escolha!"];
+
 function renderQuestion(){
   qIndex = parseInt(step.replace('q',''));
   const item = questions[qIndex];
@@ -1095,30 +1235,84 @@ function renderQuestion(){
           </button>
         `).join('')}
       </div>
-      <div class="nav-row">
+      <div class="transition-msg" id="transitionMsg">
+        <span class="transition-check">✓</span>
+        <span id="transitionText">Ótimo!</span>
+      </div>
+      <div class="nav-row" id="navRow">
         <button class="back-btn" id="backBtn" ${qIndex===0 ? 'disabled':''}>&larr; Voltar</button>
         <span class="counter">${qIndex+1} / ${questions.length}</span>
       </div>
     </div>
   `;
+  let answering = false;
+  const optsWrap = document.getElementById('opts');
+  const navRow = document.getElementById('navRow');
+  const transitionMsg = document.getElementById('transitionMsg');
+  const transitionText = document.getElementById('transitionText');
+
+  function advance(){
+    if(BREAK_AFTER[qIndex]){
+      step = BREAK_AFTER[qIndex];
+    } else if(qIndex + 1 < questions.length){
+      step = "q" + (qIndex+1);
+    } else {
+      step = "loading";
+    }
+    render();
+  }
+
+  function selectOption(btn){
+    if(answering) return;
+    answering = true;
+    answers[item.key] = item.options[btn.dataset.i];
+    document.querySelectorAll('.opt').forEach(b => b.style.pointerEvents = 'none');
+    btn.classList.add('selected');
+    transitionText.textContent = TRANSITION_PHRASES[Math.floor(Math.random()*TRANSITION_PHRASES.length)];
+    setTimeout(()=>{
+      optsWrap.style.display = 'none';
+      navRow.style.display = 'none';
+      transitionMsg.classList.add('show');
+    }, 180);
+    setTimeout(advance, 800);
+  }
+
   document.querySelectorAll('.opt').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      answers[item.key] = item.options[btn.dataset.i];
-      if(BREAK_AFTER[qIndex]){
-        step = BREAK_AFTER[qIndex];
-      } else if(qIndex + 1 < questions.length){
-        step = "q" + (qIndex+1);
-      } else {
-        step = "loading";
-      }
-      render();
-    });
+    btn.addEventListener('click', ()=> selectOption(btn));
   });
   const backBtn = document.getElementById('backBtn');
   backBtn.addEventListener('click', ()=>{
     if(qIndex>0){ step = "q" + (qIndex-1); render(); }
   });
+  // Foco no primeiro item para permitir navegação por teclado
+  const firstOpt = document.querySelector('.opt');
+  if(firstOpt) firstOpt.focus({preventScroll:true});
 }
+
+// Navegação por teclado: seta esquerda volta, seta direita/Enter seleciona a opção focada
+document.addEventListener('keydown', (e)=>{
+  if(!step.startsWith('q')) return;
+  if(e.key === 'ArrowLeft'){
+    const backBtn = document.getElementById('backBtn');
+    if(backBtn && !backBtn.disabled) backBtn.click();
+  } else if(e.key === 'ArrowRight' || e.key === 'Enter'){
+    const focused = document.activeElement;
+    if(focused && focused.classList && focused.classList.contains('opt')){
+      focused.click();
+    } else {
+      const firstOpt = document.querySelector('.opt');
+      if(firstOpt) firstOpt.click();
+    }
+  } else if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+    const opts = Array.from(document.querySelectorAll('.opt'));
+    const idx = opts.indexOf(document.activeElement);
+    if(idx > -1){
+      e.preventDefault();
+      const next = e.key === 'ArrowDown' ? Math.min(idx+1, opts.length-1) : Math.max(idx-1, 0);
+      opts[next].focus();
+    }
+  }
+});
 
 function renderBreak(){
   updateTape(30);
@@ -1127,7 +1321,7 @@ function renderBreak(){
     <img class="card-img short" src="${IMG.break1}" alt="Mesa de costura com roupinhas pet prontas, tecidos e linhas">
     <div class="card-body break-body">
       <p class="break-quote">"Cada peça que você corta com técnica é o primeiro passo de um negócio que pode mudar sua rotina."</p>
-      <p class="break-sub">Faltam mais 7 perguntas pro seu resultado personalizado</p>
+      <p class="break-sub">Analisando seus objetivos... Você tem muito potencial! (faltam 7 perguntas)</p>
       <button class="continue-btn" id="continueBtn">Continuar →</button>
     </div>
   `;
@@ -1143,7 +1337,7 @@ function renderBreak2(){
     <img class="card-img short" src="${IMG.break2}" alt="Molde profissional real incluso no guia">
     <div class="card-body break-body">
       <p class="break-quote">Este é um dos moldes profissionais reais que você recebe — prontos pra imprimir e cortar.</p>
-      <p class="break-sub">Só mais 3 perguntas!</p>
+      <p class="break-sub">Só mais alguns detalhes para finalizarmos seu plano personalizado.</p>
       <button class="continue-btn" id="continueBtn">Continuar →</button>
     </div>
   `;
@@ -1156,7 +1350,7 @@ function renderLoading(){
   updateTape(100, CAPTIONS.length-1);
   const goalText = (answers.goal || "").toLowerCase();
   const blockerText = answers.blocker || "";
-  let personalized = "Montando seu perfil de costureira pet...";
+  let personalized = "Estamos quase lá! Seu perfil está ficando incrível...";
   if(goalText.includes("negócio")){
     personalized = "Traçando seu caminho para montar um negócio de moda pet...";
   } else if(goalText.includes("renda extra")){
@@ -1190,6 +1384,7 @@ function renderResult(){
   if(goal.includes("negócio") || profile.includes("empreendo")){ recommendedKey = "mestre"; }
   else if(goal.includes("hobby")){ recommendedKey = "essencial"; }
   const recommendedPlan = PLANS.find(p => p.key === recommendedKey);
+  const blockerText = answers.blocker || "não saber por onde começar";
 
   card.innerHTML = `
     <div class="vsl-wrap" id="vslWrap">
@@ -1200,13 +1395,15 @@ function renderResult(){
       <div class="vsl-progress-track"><div class="vsl-progress-fill" id="vslProgressFill"></div></div>
       <div class="vsl-mute-hint" id="vslMuteHint">🔇 Toque para ativar o som</div>
     </div>
+    <p class="vsl-caption">🎬 Assista até o fim para desbloquear sua oferta personalizada</p>
+    <button class="vsl-more-btn hidden" id="vslMoreBtn">Saiba mais e escolha seu plano ↓</button>
     <div class="card-body result">
       <span class="badge">Resultado do seu quiz</span>
       <h1 class="result-title">${title}</h1>
       <p class="result-copy">
-        Com base nas suas respostas, o que mais trava você agora não é a costura em si —
-        é não ter um caminho claro: medidas certas, moldes prontos e um passo a passo até a primeira venda.
-        Assista ao vídeo acima e veja como o <strong>Guia Completo de Moda Pet</strong> resolve isso.
+        Vimos que seu maior desafio hoje é <strong>"${blockerText}"</strong>.
+        Por isso, o plano que recomendamos abaixo foi escolhido estrategicamente pra te dar o caminho exato
+        pra superar isso e começar a faturar com o <strong>Guia Completo de Moda Pet</strong>.
       </p>
 
       <div class="divider"></div>
@@ -1225,8 +1422,39 @@ function renderResult(){
 
       <div class="divider"></div>
 
+      <p class="offer-title">Compare os planos rapidinho:</p>
+      <div class="compare-table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th class="compare-label-col"></th>
+              <th>Essencial</th>
+              <th>Premium</th>
+              <th>Mestre</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${FEATURE_MATRIX.map(row => `
+              <tr>
+                <td class="compare-label-col">${row.label}</td>
+                <td>${typeof row.essencial === 'string' ? row.essencial : (row.essencial ? '✅' : '❌')}</td>
+                <td>${typeof row.premium === 'string' ? row.premium : (row.premium ? '✅' : '❌')}</td>
+                <td>${typeof row.mestre === 'string' ? row.mestre : (row.mestre ? '✅' : '❌')}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
       <p class="offer-title" style="margin-bottom:2px;">Escolha o plano ideal pra você:</p>
       <p class="plan-recommend-line">Baseado nas suas respostas, o <strong>${recommendedPlan.name}</strong> é o que mais faz sentido pra você.</p>
+
+      <!-- Só deixe o banner abaixo visível (removendo o comentário) se a oferta for realmente por tempo limitado -->
+      <!--
+      <div class="urgency-banner">🔥 Oferta especial de lançamento: bônus exclusivos garantidos apenas para compras realizadas hoje.</div>
+      -->
 
       <div class="plans-wrap" id="plansWrap">
         ${PLANS.map(plan => `
@@ -1251,7 +1479,7 @@ function renderResult(){
                 </div>
               </div>
             ` : ''}
-            <a class="plan-cta plan-cta-track" data-plan="${plan.key}" data-name="${plan.name}" data-value="${plan.priceValue}" href="${plan.checkout}">
+            <a class="plan-cta plan-cta-track ${plan.highlightCta ? 'plan-cta-highlight' : ''}" data-plan="${plan.key}" data-name="${plan.name}" data-value="${plan.priceValue}" href="${plan.checkout}">
               Quero o ${plan.name.replace('Plano ','')} →
             </a>
           </div>
@@ -1339,6 +1567,14 @@ function renderResult(){
       vslEnded = true;
       vslPlayer.pause();
       vslProgressFill.style.width = '100%';
+      const vslMoreBtn = document.getElementById('vslMoreBtn');
+      if(vslMoreBtn){
+        vslMoreBtn.classList.remove('hidden');
+        vslMoreBtn.addEventListener('click', ()=>{
+          const plansWrap = document.getElementById('plansWrap');
+          if(plansWrap) plansWrap.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      }
       if(typeof fbq === 'function'){ fbq('trackCustom', 'VSLComplete', {content_name:'Quiz Moda Pet - VSL'}); }
     });
     // Bloqueia teclado (espaço/setas) e duplo clique (fullscreen)
